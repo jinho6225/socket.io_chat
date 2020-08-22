@@ -15,19 +15,22 @@ app.use(express.static("public"));
 // Socket setup
 const io = socket(server);
 
-const activeUsers = new Set();
+// Code below for connection
+let count = 1;
+io.on('connection', (socket) => {
+  console.log('user connected: ', socket.id);
+  let name = '익명' + count++;
+  socket.name = name;
 
-io.on("connection", function (socket) {
-  console.log("Made socket connection");
-
-  socket.on("new user", function (data) {
-    socket.userId = data;
-    activeUsers.add(data);
-    io.emit("new user", [...activeUsers]);
+  socket.on('disconnect', () => {
+    console.log('user disconnected: ', socket.id);
   });
 
-  socket.on("disconnect", () => {
-    activeUsers.delete(socket.userId);
-    io.emit("user disconnected", socket.userId);
+  socket.on('send msg', ({ message, nick }) => {
+    if (!nick) {
+      nick = socket.name  
+    }
+    io.emit('rcvd msg', { message, nick });
   });
-});
+
+})

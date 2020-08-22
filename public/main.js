@@ -1,35 +1,28 @@
 const socket = io();
+const sendingForm = document.querySelector('#chat')
+const nameField = document.querySelector('#name')
+const msgField = document.querySelector('#message')
+const messageBox = document.querySelector(".messages__history");
 
-const inboxPeople = document.querySelector(".inbox__people");
+sendingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-let userName = "";
+    socket.emit('send msg', {
+        message: msgField.value,
+        nick: nameField.value,
+    })
+    msgField.value = "";
+})
 
-const newUserConnected = (user) => {
-  userName = user || `User${Math.floor(Math.random() * 1000000)}`;
-  socket.emit("new user", userName);
-  addToUsersBox(userName);
+socket.on('rcvd msg', ({ message, nick }) => {
+    addMsg({ message, nick })
+})
+
+const addMsg = ({ message, nick }) => {
+    const receivedMsg = `
+    <div class="incoming__message">
+        <div class="message__author">${nick}</div>
+        <div class="message__context">${message}</div>
+    </div>`;
+    messageBox.innerHTML += receivedMsg;
 };
-
-const addToUsersBox = (userName) => {
-  if (!!document.querySelector(`.${userName}-userlist`)) {
-    return;
-  }
-
-  const userBox = `
-    <div class="chat_ib ${userName}-userlist">
-      <h5>${userName}</h5>
-    </div>
-  `;
-  inboxPeople.innerHTML += userBox;
-};
-
-// new user is created so we generate nickname and emit event
-newUserConnected();
-
-socket.on("new user", function (data) {
-  data.map((user) => addToUsersBox(user));
-});
-
-socket.on("user disconnected", function (userName) {
-  document.querySelector(`.${userName}-userlist`).remove();
-});

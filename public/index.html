@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Socket.io simple chat</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="main.js" defer></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="inbox">
-        <div class="inbox__people">
-          <h4>Active users</h4>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Chat</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css", integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="./main.js" defer></script>
+</head>
+<body>
+    <center>
+        <div>
+            <button class="btn btn-info" type="button">
+                Goorm 채팅방
+            </button>
         </div>
         <div class="inbox__messages">
-          <div class="messages__history"></div>
-          <div class="fallback"></div>
+            <div class="messages__history"></div>
         </div>
-      </div>
-
-      <form class="message_form">
-        <input type="text" class="message_form__input" placeholder="Type a message" />
-        <button class="message_form__button" type="submit">
-          Enter
-        </button>
-      </form>
-    </div>
-
-  </body>
+        <form id="chat">
+            <input class="form-contorl" id="name" type="text">
+            <input class="form-contorl" id="message" type="text">
+            <button class="btn btn-primary" type="submit">
+                전송
+            </button>
+        </form>
+        <div class="box" id="box">
+        </div>
+    </center>
+</body>
 </html>
