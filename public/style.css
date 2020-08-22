@@ -10,12 +10,24 @@
 }
 
 .inbox__people {
+	background-color: #f7f7f7;
 	width: 35%;
 	border: 1px solid black;
 	padding: 16px;
 }
 .inbox__people > h4 {
 	border-bottom: 1px solid black;
+}
+
+.outgoing__message {
+	display: flex;
+    justify-content: flex-end;
+	background-color: #f7f7f7;
+	color: darkgreen
+}
+
+.inbox_userName > h5 {
+	color: darkgreen
 }
 
 .inbox__messages {
