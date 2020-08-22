@@ -8,14 +8,15 @@ const io = require('socket.io')(http);
 
 app.use(express.static('public'))
 
+io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); // This will emit the event to all connected sockets
 io.on('connection', (socket) => {
-  console.log('a user connected');
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-  })
+  socket.broadcast.emit('hi');
 });
-
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
 
 http.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
