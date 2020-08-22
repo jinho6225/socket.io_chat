@@ -1,17 +1,32 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io simple chat</title>
+    <link rel="stylesheet" href="./style.css" />
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./main.js" defer></script>
+    <script src="main.js" defer></script>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" />
-      <button>Send</button>
-    </form>
+    <div class="container">
+      <div class="inbox">
+        <div class="inbox__people">
+          <h4>Active users</h4>
+        </div>
+        <div class="inbox__messages">
+          <div class="messages__history"></div>
+          <div class="fallback"></div>
+        </div>
+      </div>
+
+      <form class="message_form">
+        <input type="text" class="message_form__input" placeholder="Type a message" />
+        <button class="message_form__button" type="submit">
+          Enter
+        </button>
+      </form>
+    </div>
+
   </body>
 </html>
