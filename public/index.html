@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>socket_chat</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" defer></script>
+    <script src="./main.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="inbox">
+            <div class="inbox__people">
+                <h4>Active users</h4>
+            </div>
+            <div class="inbox__messages">
+                <div class="messages__history"></div>
+                <div class="fallback"></div>
+            </div>
+        </div>
+        <form action="" class="message_form">
+            <input type="text" placeholder="Type a message"  class="message_form__input">
+            <buttion class="message_form__button">Enter</buttion>
+        </form>
+    </div>
+</body>
+</html>

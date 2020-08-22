@@ -1,0 +1,49 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;;
+}
+.inbox {
+	display: flex;
+	width: 100%;
+	min-height: 800px;
+}
+
+.inbox__people {
+	width: 35%;
+	border: 1px solid black;
+	padding: 16px;
+}
+.inbox__people > h4 {
+	border-bottom: 1px solid black;
+}
+
+.inbox__messages {
+	width: 65%;
+	border: 1px solid black;
+}
+
+
+.message_form {
+	width: 100%;
+	display: flex;
+}
+
+.message_form__input {
+	width: 100%;
+	height: 15%;
+	width: 100%;
+    height: 15%;
+    border-color: white;
+    border-width: 0px;
+	margin-top: 1%;
+	margin-left: 1%;
+
+}
+
+.message_form__button {
+	width: 15%;
+	margin-top: 1%;
+	text-align: right;
+	margin-right: 1%
+}
