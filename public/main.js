@@ -4,6 +4,8 @@ const inboxPeople = document.querySelector(".inbox__people");
 const inputField = document.querySelector(".message_form__input");
 const messageForm = document.querySelector(".message_form");
 const messageBox = document.querySelector(".messages__history");
+const fallback = document.querySelector(".fallback");
+
 
 let userName = "";
 
@@ -26,15 +28,6 @@ const addToUsersBox = (userName) => {
     inboxPeople.innerHTML += userBox;
 };
 
-newUserConnected();
-
-socket.on("new user", (data) => {
-    data.map((user) => addToUsersBox(user))
-});
-
-socket.on("user disconnected", function (userName) {
-    document.querySelector(`.${userName}-userlist`).remove();
-});
 
 const addNewMessage = ({ user, message }) => {
     const time = new Date();
@@ -66,6 +59,8 @@ const addNewMessage = ({ user, message }) => {
     messageBox.innerHTML += user === userName ? myMsg : receivedMsg;
 }
 
+newUserConnected();
+
 messageForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!inputField.value) {
@@ -80,6 +75,32 @@ messageForm.addEventListener("submit", (e) => {
     inputField.value = "";
 });
 
+inputField.addEventListener("keyup", () => {
+    socket.emit("typing", {
+        isTyping: inputField.value.length > 0,
+        nick: userName,
+    });
+});
+
 socket.on("chat message", function (data) {
     addNewMessage({ user: data.nick, message: data.message });
+});
+
+socket.on("user disconnected", function (userName) {
+    document.querySelector(`.${userName}-userlist`).remove();
+});
+
+socket.on("new user", (data) => {
+    data.map((user) => addToUsersBox(user))
+});
+
+socket.on("typing", function (data) {
+    const { isTyping, nick } = data;
+
+    if (!isTyping) {
+        fallback.innerHTML = "";
+        return;
+    }
+
+    fallback.innerHTML = `<p>${nick} is typing...</p>`;
 });
